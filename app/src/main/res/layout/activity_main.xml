@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/huise"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/email_text"
+        android:layout_width="227dp"
+        android:layout_height="33dp"
+        android:background="@drawable/edit_bg"
+        android:hint="please input email"
+        android:maxLines="1"/>
+    <EditText
+        android:id="@+id/pwd_text"
+        android:layout_width="227dp"
+        android:layout_height="33dp"
+        android:background="@drawable/edit_bg"
+        android:hint="please input password"
+        android:maxLines="1"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/email_text"
+        app:layout_constraintLeft_toLeftOf="@id/email_text"/>
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:background="#2E9AFE"
+        android:text="sing up"
+        app:layout_constraintTop_toTopOf="@id/pwd_text"/>
+</android.support.constraint.ConstraintLayout>
