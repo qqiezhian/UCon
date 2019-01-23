@@ -16,21 +16,23 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             if(action.equals(Intent.ACTION_TIME_TICK)) {
                 //do what you want to do ...13
                 Log.d("BroadcastReceiver", "every minute");
+                isServiceRunning(context);
             }
     }
 
-    private void isServiceRunning() {
+    private void isServiceRunning(Context context) {
         boolean isServiceRunning = false;
-        ActivityManager manager = (ActivityManager)ThisApp.getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager manager = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service :manager.getRunningServices(Integer.MAX_VALUE)) {
-            if("so.xxxx.WidgetUpdateService".equals(service.service.getClassName()))
+            if("com.qiezh.ucon.MyLocalService".equals(service.service.getClassName()))
 //Service的类名
             {
                 isServiceRunning = true;
             }
+            Log.d("BroadcastReceiver ser: ", service.service.getClassName());
         }
         if (!isServiceRunning) {
-            registerPhoneStateListener
+            Log.d("BroadcastReceiver", "MyLocalService not running");
         }
     }
 }
