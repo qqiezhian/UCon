@@ -56,10 +56,10 @@ public class MyLocalService extends Service {
             public void run() {
                 //do something
                 add_location(get_location());
-                if (count % 10 == 0) {
+                if (count % 720 == 0) {
                     write_gpx();
                 }
-                mHandler.postDelayed(this, 3000);
+                mHandler.postDelayed(this, 60000);
             }
         };
         mHandler.postDelayed(r, 1000);
@@ -101,7 +101,7 @@ public class MyLocalService extends Service {
         MyUploadService.uploadBinary(this, gpxPath);
     }
     private void add_location(Location loc) {
-        if (locations_list != null) {
+        if (locations_list != null && loc != null) {
             Waypoint wp = new Waypoint(loc.getLatitude(),loc.getLongitude());
             wp.setTime(new Date(System.currentTimeMillis()));
             locations_list.add(wp);
@@ -111,6 +111,7 @@ public class MyLocalService extends Service {
     private Location get_location() {
         locationManager = (LocationManager) getSystemService(getApplicationContext().LOCATION_SERVICE);
 
+        Log.d(TAG, "get_location: " + getApplicationContext().LOCATION_SERVICE + " " + locationManager.toString());
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_COARSE);//低精度，如果设置为高精度，依然获取不了location。
         criteria.setAltitudeRequired(false);//不要求海拔
