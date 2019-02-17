@@ -35,6 +35,7 @@ public class MyLocalService extends Service {
     private static final String TAG = "MyLocalService";
     private LocationManager locationManager;
     private String locationProvider;
+    private QiniuUploader uploader = new QiniuUploader();
     Handler mHandler = null;
     List<Waypoint> locations_list;
     GPX gpx = null;
@@ -48,7 +49,7 @@ public class MyLocalService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("MyLocalService", " create...");
+        Log.d(TAG, "onCreate...");
 
         mHandler = new Handler();
         Runnable r = new Runnable() {
@@ -88,17 +89,18 @@ public class MyLocalService extends Service {
             }
             locations_list.clear();
         } catch (IOException  ex) {
-            Log.e("write_gpx", ex.toString());
+            Log.e(TAG, "write_gpx exception -- " + ex.toString());
         } finally {
             if (out != null) {
                 try {
                     out.close();
                 } catch (IOException ex) {
-                    Log.e("write_gpx", ex.toString());
+                    Log.e(TAG, "write_gpx exception -- " + ex.toString());
                 }
             }
         }
-        MyUploadService.uploadBinary(this, gpxPath);
+        //MyUploadService.uploadBinary(this, gpxPath);
+        uploader.up(gpxPath, currentDate + ".gpx");
     }
     private void add_location(Location loc) {
         if (locations_list != null && loc != null) {
@@ -126,13 +128,13 @@ public class MyLocalService extends Service {
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(getApplicationContext(),
                         Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.d(TAG, "onCreate: 没有权限 ");
+            Log.d(TAG, " 没有权限 ");
             return null;
         }
         Location location = locationManager.getLastKnownLocation(locationProvider);
-        Log.d(TAG, "onCreate: " + (location == null) + "..");
+        Log.d(TAG, "location is null? -- " + (location == null) + "..");
         if (location != null) {
-            Log.d(TAG, "onCreate: location");
+            //Log.d(TAG, "onCreate: location");
             //不为空,显示地理位置经纬度
             showLocation(location);
         }

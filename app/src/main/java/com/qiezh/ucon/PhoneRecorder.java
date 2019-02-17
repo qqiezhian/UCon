@@ -59,7 +59,7 @@ public class PhoneRecorder {
         mRecorder.release();
         mRecorder = null;
         sleep(100);
-        MyUploadService.uploadBinary(mContext, mFileName);
+        //MyUploadService.uploadBinary(mContext, mFileName);
     }
     private void setFileName() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");

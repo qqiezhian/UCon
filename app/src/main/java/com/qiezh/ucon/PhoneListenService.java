@@ -31,10 +31,12 @@ public class PhoneListenService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand action: " + intent.getAction() +
                 " flags: " + flags + " startId: " + startId);
+        registerPhoneStateListener();
+        /*
         String action = intent.getAction();
         if (action.equals(ACTION_REGISTER_LISTENER)) {
             registerPhoneStateListener();
-        }
+        }*/
         return super.onStartCommand(intent, flags, startId);
     }
 
